@@ -71,47 +71,6 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		}
 
 		/**
-		 *  This action is called in the admin_head action on the edit screen where your field is created.
-		 *  Use this action to add CSS and JavaScript to assist your render_field() action.
-		 */
-		function input_admin_head() {
-		}
-
-		/**
-		 *  This function is called once on the 'input' page between the head and footer
-		 *  There are 2 situations where ACF did not load during the 'acf/input_admin_enqueue_scripts' and
-		 *  'acf/input_admin_head' actions because ACF did not know it was going to be used. These situations are
-		 *  seen on comments / user edit forms on the front end. This function will always be called, and includes
-		 *  $args that related to the current screen such as $args['post_id']
-		 *
-		 * @param $args
-		 */
-		function input_form_data( $args ) {
-		}
-
-
-		/**
-		 *  This action is called in the admin_footer action on the edit screen where your field is created.
-		 *  Use this action to add CSS and JavaScript to assist your render_field() action.
-		 */
-		function input_admin_footer() {
-		}
-
-		/**
-		 *  This action is called in the admin_enqueue_scripts action on the edit screen where your field is edited.
-		 *  Use this action to add CSS + JavaScript to assist your render_field_options() action.
-		 */
-		function field_group_admin_enqueue_scripts() {
-		}
-
-		/**
-		 *  This action is called in the admin_head action on the edit screen where your field is edited.
-		 *  Use this action to add CSS and JavaScript to assist your render_field_options() action.
-		 */
-		function field_group_admin_head() {
-		}
-
-		/**
 		 * This filter is applied to the $value after it is loaded from the db
 		 *
 		 * @param  $value (mixed) the value found in the database
@@ -168,47 +127,6 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 */
 		function validate_value( $valid, $value, $field, $input ) {
 			return $valid;
-		}
-
-		/**
-		 *  This action is fired after a value has been deleted from the db.
-		 *  Please note that saving a blank value is treated as an update, not a delete
-		 *
-		 * @param  $post_id (mixed) the $post_id from which the value was deleted
-		 * @param  $key (string) the $meta_key which the value was deleted
-		 */
-		function delete_value( $post_id, $key ) {
-		}
-
-		/**
-		 *  This filter is applied to the $field after it is loaded from the database
-		 *
-		 * @param  $field (array) the field array holding all the field options
-		 *
-		 * @return  $field
-		 */
-		function load_field( $field ) {
-			return $field;
-		}
-
-		/**
-		 *  This filter is applied to the $field before it is saved to the database
-		 *
-		 * @param  $field (array) the field array holding all the field options
-		 *
-		 * @return  $field
-		 */
-		function update_field( $field ) {
-			return $field;
-		}
-
-
-		/**
-		 *  This action is fired after a field is deleted from the database
-		 *
-		 * @param  $field (array) the field array holding all the field options
-		 */
-		function delete_field( $field ) {
 		}
 
 	}

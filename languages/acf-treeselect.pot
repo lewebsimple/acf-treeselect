@@ -1,0 +1,51 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-14 16:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: fields/acf-treeselect-v5.php:22
+msgid "Tree Select"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:39
+msgid "Return Format"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:40
+msgid "Specify the value returned in the template."
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:43
+msgid "Values (array)"
+msgstr ""
+
+#. Name of the plugin
+msgid "Advanced Custom Fields: Tree Select"
+msgstr ""
+
+#. Description of the plugin
+msgid "Tree Select field for ACF."
+msgstr ""
+
+#. URI of the plugin
+msgid "https://gitlab.ledevsimple.ca/wordpress/acf-treeselect"
+msgstr ""
+
+#. Author of the plugin
+msgid "Pascal Martineau <pascal@lewebsimple.ca>"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://lewebsimple.ca"
+msgstr ""

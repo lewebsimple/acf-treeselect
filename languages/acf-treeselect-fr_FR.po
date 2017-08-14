@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Custom Fields: Tree Select\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-14 16:02+0000\n"
+"PO-Revision-Date: 2017-08-14 16:04+0000\n"
+"Last-Translator: lewebsimple <tech@lewebsimple.ca>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: fields/acf-treeselect-v5.php:22
+msgid "Tree Select"
+msgstr "Sélection hiérarchique"
+
+#: fields/acf-treeselect-v5.php:39
+msgid "Return Format"
+msgstr "Format d'affichage"
+
+#: fields/acf-treeselect-v5.php:40
+msgid "Specify the value returned in the template."
+msgstr "Détermine le format retourné dans le modèle."
+
+#: fields/acf-treeselect-v5.php:43
+msgid "Values (array)"
+msgstr "Valeurs (array)"
+
+#. Name of the plugin
+msgid "Advanced Custom Fields: Tree Select"
+msgstr "Advanced Custom Fields: Sélection hiérarchique"
+
+#. Description of the plugin
+msgid "Tree Select field for ACF."
+msgstr "Champ ACF de sélection hiérarchique."
+
+#. URI of the plugin
+msgid "https://gitlab.ledevsimple.ca/wordpress/acf-treeselect"
+msgstr "https://gitlab.ledevsimple.ca/wordpress/acf-treeselect"
+
+#. Author of the plugin
+msgid "Pascal Martineau <pascal@lewebsimple.ca>"
+msgstr "Pascal Martineau <pascal@lewebsimple.ca>"
+
+#. Author URI of the plugin
+msgid "https://lewebsimple.ca"
+msgstr "https://lewebsimple.ca"
