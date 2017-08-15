@@ -86,22 +86,13 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @param $field (array) the $field being rendered
 		 */
 		function render_field( $field ) {
-			$choices = array(
-				'' => '- ' . __( "Select", 'acf-treeselect' ) . ' -',
-			);
-			foreach ( $field['choices'] as $value => $choice ) {
-				$choices[ $value ] = $choice['label'];
-			}
-			$select = array(
-				'id'      => $field['id'],
-				'class'   => $field['class'],
-				'name'    => $field['name'],
-				'value'   => $field['value'],
-				'choices' => $choices,
-			)
 			?>
             <div class="acf-input-wrap acf-treeselect">
-				<?php acf_select_input( $select ) ?>
+				<?php
+				foreach ( acf_treeselect_select_inputs( $field ) as $select_input ) {
+					acf_select_input( $select_input );
+				}
+				?>
             </div>
 			<?php
 		}
@@ -197,11 +188,11 @@ function acf_treeselect_encode_choices( $choices = array(), $parent = '' ) {
 	$string = '';
 
 	foreach ( $choices as $value => $choice ) {
-	    $choice_parent = $parent;
+		$choice_parent = $parent;
 		if ( count( $choice['children'] ) > 0 ) {
-			$string .= $choice_parent . $value . ' : ' . $choice['label'] . "\n";
+			$string        .= $choice_parent . $value . ' : ' . $choice['label'] . "\n";
 			$choice_parent .= $value . ' / ';
-			$string .= acf_treeselect_encode_choices( $choice['children'], $choice_parent );
+			$string        .= acf_treeselect_encode_choices( $choice['children'], $choice_parent );
 		} else {
 			$string .= $choice_parent . $value . ' : ' . $choice['label'] . "\n";
 		}
@@ -253,4 +244,59 @@ function acf_treeselect_decode_choices( $string = '' ) {
 	}
 
 	return $choices;
+}
+
+/**
+ * Build select inputs attributes recursively.
+ *
+ * @param $field
+ * @param string $parent
+ *
+ * @return array
+ */
+function acf_treeselect_select_inputs( $field, $parent = '0' ) {
+	$select_inputs = array();
+	$data_parent   = '[0]';
+
+	// Determine current choices and field_name
+	$choices = $field['choices'];
+	$parents = explode( '/', $parent );
+	while ( count( $parents ) ) {
+		$current_parent = array_shift( $parents );
+		if ( $current_parent == '0' ) {
+			continue;
+		}
+		if ( ! isset( $choices[ $current_parent ] ) ) {
+			return array();
+		}
+		$choices     = $choices[ $current_parent ]['children'];
+		$data_parent .= '[' . $current_parent . ']';
+	}
+
+	// Create options from current choices
+	$options = array(
+		'' => '- ' . __( "Select", 'acf-treeselect' ) . ' -',
+	);
+	foreach ( $choices as $choice_key => $choice ) {
+		$options[ $choice_key ] = $choice['label'];
+	}
+
+	// Create select input
+    // TODO: Determine current value from $field['value']
+	$select_inputs[] = array(
+		'name'        => $field['name'] . $data_parent,
+//		'value'       => $value,
+		'choices'     => $options,
+//		'style'       => empty( $value ) ? 'visibility: hidden;' : '',
+		'data-parent' => $data_parent,
+	);
+
+	// Create select inputs for children
+	foreach ( $choices as $choice_key => $choice ) {
+		if ( count( $choice['children'] ) ) {
+			$select_inputs = array_merge( $select_inputs, acf_treeselect_select_inputs( $field, $parent . '/' . $choice_key ) );
+		}
+	}
+
+	return $select_inputs;
 }
