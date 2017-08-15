@@ -22,6 +22,8 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 			$this->label    = __( 'Tree Select', 'acf-treeselect' );
 			$this->category = 'basic';
 			$this->defaults = array(
+				'choices'       => array(),
+				'allow_parent'  => false,
 				'return_format' => 'array',
 			);
 			$this->settings = $settings;
@@ -34,6 +36,24 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @param $field (array) the $field being edited
 		 */
 		function render_field_settings( $field ) {
+			// Encode choices (convert from array)
+			$field['choices'] = acf_treeselect_encode_choices( $field['choices'] );
+
+			// Choices
+			acf_render_field_setting( $field, array(
+				'label'        => __( "Choices", 'acf-treeselect' ),
+				'instructions' => __( 'Enter each choice on a new line.', 'acf-treeselect' ) . '<br /><br />' . __( "Specify the parent, value and label like this:", 'acf-treeselect' ) . '<br /><br />' . __( 'parent / child : Child', 'acf-treeselect' ),
+				'type'         => 'textarea',
+				'name'         => 'choices',
+			) );
+			// Allow parent selection
+			acf_render_field_setting( $field, array(
+				'label'        => __( "Allow parent selection", 'acf-treeselect' ),
+				'instructions' => __( "Don't force selection of last level elements.", 'acf-treeselect' ),
+				'type'         => 'true_false',
+				'ui'           => 1,
+				'name'         => 'allow_parent',
+			) );
 			// Return Format
 			acf_render_field_setting( $field, array(
 				'label'        => __( 'Return Format', 'acf-treeselect' ),
@@ -47,11 +67,26 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		}
 
 		/**
+		 * This filter is applied to the $field before it is saved to the database
+		 *
+		 * @param  $field (array) the field array holding all the field options
+		 *
+		 * @return  $field
+		 */
+		function update_field( $field ) {
+			// Decode choices (convert from string)
+			$field['choices'] = acf_treeselect_decode_choices( $field['choices'] );
+
+			return $field;
+		}
+
+		/**
 		 * Create the HTML interface for your field
 		 *
 		 * @param $field (array) the $field being rendered
 		 */
 		function render_field( $field ) {
+			// TODO: Render hierarchical select inputs
 			?>
             <div class="acf-input-wrap acf-treeselect">
                 <input type="text" name="<?= $field['name'] ?>" value="<?= $field['value'] ?>"/>
@@ -134,3 +169,75 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 	new acf_field_treeselect( $this->settings );
 
 endif;
+
+/**
+ * Convert hierarchical choices array to string
+ *
+ * @param array $choices Choices array to convert
+ * @param string $parent Initial parent value
+ *
+ * @return string
+ */
+function acf_treeselect_encode_choices( $choices = array(), $parent = '' ) {
+	if ( ! is_array( $choices ) || empty( $choices ) ) {
+		return '';
+	}
+	$string = '';
+
+	foreach ( $choices as $value => $choice ) {
+		if ( count( $choice['children'] ) > 0 ) {
+			$string .= $parent . $value . ' : ' . $choice['label'] . "\n";
+			$parent .= $value . ' / ';
+			$string .= acf_treeselect_encode_choices( $choice['children'], $parent );
+		} else {
+			$string .= $parent . $value . ' : ' . $choice['label'] . "\n";
+		}
+	}
+
+	return $string;
+}
+
+/**
+ * Convert choices string to hierarchical array
+ *
+ * @param string $string Choices string to convert
+ *
+ * @return array
+ */
+function acf_treeselect_decode_choices( $string = '' ) {
+	if ( ! is_string( $string ) ) {
+		return array();
+	}
+	$choices = array();
+
+	$lines = explode( "\n", $string );
+
+	foreach ( $lines as $line ) {
+		$line    = explode( ' : ', $line );
+		$parents = explode( ' / ', $line[0] );
+		$value   = array_pop( $parents );
+		$label   = trim( $line[1] );
+
+		$children = &$choices;
+		while ( count( $parents ) ) {
+			$parent_value = array_shift( $parents );
+			if ( ! isset( $children[ $parent_value ] ) ) {
+				$children[ $parent_value ] = array(
+					'label'    => $parent_value,
+					'children' => array(),
+				);
+			}
+			$children = &$children[ $parent_value ]['children'];
+		}
+		if ( ! isset( $children[ $value ] ) ) {
+			$children[ $value ] = array(
+				'label'    => $label,
+				'children' => array(),
+			);
+		} else {
+			$children[ $value ]['label'] = $label;
+		}
+	}
+
+	return $choices;
+}
