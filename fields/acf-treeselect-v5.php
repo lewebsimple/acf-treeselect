@@ -258,18 +258,33 @@ function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 	$select_inputs = array();
 	$data_parent   = '[0]';
 
-	// Determine current choices and field_name
+	// Determine current value, choices and data_parent
 	$choices = $field['choices'];
+	$value   = empty( $field['value'] ) ? '' : $field['value'];
+	$hidden  = false;
 	$parents = explode( '/', $parent );
 	while ( count( $parents ) ) {
 		$current_parent = array_shift( $parents );
+
+		if ( isset( $value[ $current_parent ] ) ) {
+			if ( empty( $parents ) ) {
+				$value = $value[ $current_parent ]['value'];
+				if ( empty( $value ) && $parent != '0' ) {
+					$hidden = true;
+				}
+			} else {
+				$value = $value[ $current_parent ];
+			}
+		}
+
 		if ( $current_parent == '0' ) {
 			continue;
 		}
 		if ( ! isset( $choices[ $current_parent ] ) ) {
 			return array();
 		}
-		$choices     = $choices[ $current_parent ]['children'];
+		$choices = $choices[ $current_parent ]['children'];
+
 		$data_parent .= '[' . $current_parent . ']';
 	}
 
@@ -282,14 +297,19 @@ function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 	}
 
 	// Create select input
-    // TODO: Determine current value from $field['value']
-	$select_inputs[] = array(
-		'name'        => $field['name'] . $data_parent,
-//		'value'       => $value,
+	$select_input = array(
+		'name'        => $field['name'] . $data_parent . '[value]',
 		'choices'     => $options,
-//		'style'       => empty( $value ) ? 'visibility: hidden;' : '',
 		'data-parent' => $data_parent,
 	);
+
+	// Set value or hide
+	$select_input['value'] = $value;
+	if ( $hidden ) {
+		$select_input['style'] = 'display: none;';
+	}
+
+	$select_inputs[] = $select_input;
 
 	// Create select inputs for children
 	foreach ( $choices as $choice_key => $choice ) {
