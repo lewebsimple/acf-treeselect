@@ -86,10 +86,22 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @param $field (array) the $field being rendered
 		 */
 		function render_field( $field ) {
-			// TODO: Render hierarchical select inputs
+			$choices = array(
+				'' => '- ' . __( "Select", 'acf-treeselect' ) . ' -',
+			);
+			foreach ( $field['choices'] as $value => $choice ) {
+				$choices[ $value ] = $choice['label'];
+			}
+			$select = array(
+				'id'      => $field['id'],
+				'class'   => $field['class'],
+				'name'    => $field['name'],
+				'value'   => $field['value'],
+				'choices' => $choices,
+			)
 			?>
             <div class="acf-input-wrap acf-treeselect">
-                <input type="text" name="<?= $field['name'] ?>" value="<?= $field['value'] ?>"/>
+				<?php acf_select_input( $select ) ?>
             </div>
 			<?php
 		}
@@ -185,12 +197,13 @@ function acf_treeselect_encode_choices( $choices = array(), $parent = '' ) {
 	$string = '';
 
 	foreach ( $choices as $value => $choice ) {
+	    $choice_parent = $parent;
 		if ( count( $choice['children'] ) > 0 ) {
-			$string .= $parent . $value . ' : ' . $choice['label'] . "\n";
-			$parent .= $value . ' / ';
-			$string .= acf_treeselect_encode_choices( $choice['children'], $parent );
+			$string .= $choice_parent . $value . ' : ' . $choice['label'] . "\n";
+			$choice_parent .= $value . ' / ';
+			$string .= acf_treeselect_encode_choices( $choice['children'], $choice_parent );
 		} else {
-			$string .= $parent . $value . ' : ' . $choice['label'] . "\n";
+			$string .= $choice_parent . $value . ' : ' . $choice['label'] . "\n";
 		}
 	}
 
