@@ -106,8 +106,12 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		function input_admin_enqueue_scripts() {
 			$url     = $this->settings['url'];
 			$version = $this->settings['version'];
+
 			wp_register_script( 'acf-input-treeselect', "{$url}assets/js/input.js", array( 'acf-input' ), $version );
 			wp_enqueue_script( 'acf-input-treeselect' );
+
+			wp_register_style( 'acf-treeselect', "{$url}assets/css/acf-treeselect.css", array( 'acf-input' ), $version );
+			wp_enqueue_style( 'acf-treeselect' );
 		}
 
 		/**
