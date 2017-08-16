@@ -89,8 +89,10 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 			?>
             <div class="acf-input-wrap acf-treeselect">
 				<?php
-				foreach ( acf_treeselect_select_inputs( $field ) as $select_input ) {
-					acf_select_input( $select_input );
+				if ( $select_inputs = acf_treeselect_select_inputs( $field ) ) {
+					foreach ( $select_inputs as $select_input ) {
+						acf_select_input( $select_input );
+					}
 				}
 				?>
             </div>
@@ -252,63 +254,38 @@ function acf_treeselect_decode_choices( $string = '' ) {
  * @param $field
  * @param string $parent
  *
- * @return array
+ * @return array|bool
  */
 function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 	$select_inputs = array();
-	$data_parent   = '[0]';
 
-	// Determine current value, choices and data_parent
-	$choices = $field['choices'];
-	$value   = empty( $field['value'] ) ? '' : $field['value'];
-	$hidden  = false;
-	$parents = explode( '/', $parent );
+	$parents       = explode( '/', $parent );
+	$choices       = $field['choices'];
+	$subfield_name = '';
+
 	while ( count( $parents ) ) {
 		$current_parent = array_shift( $parents );
 
-		if ( isset( $value[ $current_parent ] ) ) {
-			if ( empty( $parents ) ) {
-				$value = $value[ $current_parent ]['value'];
-				if ( empty( $value ) && $parent != '0' ) {
-					$hidden = true;
-				}
-			} else {
-				$value = $value[ $current_parent ];
-			}
+		// Walk down choices array
+		if ( isset( $choices[ $current_parent ] ) && isset( $choices[ $current_parent ]['children'] ) ) {
+			$choices = $choices[ $current_parent ]['children'];
+		} else if ( $current_parent != '0' ) {
+			return false;
 		}
 
-		if ( $current_parent == '0' ) {
-			continue;
-		}
-		if ( ! isset( $choices[ $current_parent ] ) ) {
-			return array();
-		}
-		$choices = $choices[ $current_parent ]['children'];
-
-		$data_parent .= '[' . $current_parent . ']';
-	}
-
-	// Create options from current choices
-	$options = array(
-		'' => '- ' . __( "Select", 'acf-treeselect' ) . ' -',
-	);
-	foreach ( $choices as $choice_key => $choice ) {
-		$options[ $choice_key ] = $choice['label'];
+		// Append to data-parent attribute
+		$subfield_name .= '[' . $current_parent . ']';
 	}
 
 	// Create select input
-	$select_input = array(
-		'name'        => $field['name'] . $data_parent . '[value]',
-		'choices'     => $options,
-		'data-parent' => $data_parent,
-	);
-
-	// Set value or hide
-	$select_input['value'] = $value;
-	if ( $hidden ) {
-		$select_input['style'] = 'display: none;';
+	$options = array( '' => '- ' . __( "Select", 'acf-treeselect' ) . ' -' );
+	foreach ( $choices as $choice_key => $choice ) {
+		$options[ $choice_key ] = $choice['label'];
 	}
-
+	$select_input    = array(
+		'name'    => $field['name'] . $subfield_name . '[value]',
+		'choices' => $options,
+	);
 	$select_inputs[] = $select_input;
 
 	// Create select inputs for children
