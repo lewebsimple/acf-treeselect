@@ -3,31 +3,68 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-14 16:02+0000\n"
+"POT-Creation-Date: 2017-08-16 18:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
 "Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/"
+"X-Generator: Loco - https://localise.biz/"
 
 #: fields/acf-treeselect-v5.php:22
 msgid "Tree Select"
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:39
+#: fields/acf-treeselect-v5.php:44
+msgid "Choices"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:45
+msgid "Enter each choice on a new line."
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:45
+msgid "Specify the parent, value and label like this:"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:45
+msgid "parent / child : Child"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:51
+msgid "Allow parent selection"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:52
+msgid "Don't force selection of last level elements."
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:59
 msgid "Return Format"
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:40
+#: fields/acf-treeselect-v5.php:60
 msgid "Specify the value returned in the template."
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:43
+#: fields/acf-treeselect-v5.php:63
 msgid "Values (array)"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:213
+#, php-format
+msgid "Invalid selection value %s"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:222
+msgid "Last level selection is required"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:349
+msgid "Select"
 msgstr ""
 
 #. Name of the plugin

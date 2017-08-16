@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Advanced Custom Fields: Tree Select\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-14 16:02+0000\n"
-"PO-Revision-Date: 2017-08-14 16:04+0000\n"
+"POT-Creation-Date: 2017-08-16 18:19+0000\n"
+"PO-Revision-Date: 2017-08-16 18:19+0000\n"
 "Last-Translator: lewebsimple <tech@lewebsimple.ca>\n"
 "Language-Team: French (Canada)\n"
 "Language: fr-CA\n"
@@ -13,21 +13,58 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
+#: fields/acf-treeselect-v5.php:222
+msgid "Last level selection is required"
+msgstr "Une sélection de dernier niveau est requise"
+
 #: fields/acf-treeselect-v5.php:22
 msgid "Tree Select"
 msgstr "Sélection hiérarchique"
 
-#: fields/acf-treeselect-v5.php:39
+#: fields/acf-treeselect-v5.php:44
+msgid "Choices"
+msgstr "Choix"
+
+#: fields/acf-treeselect-v5.php:45
+msgid "Enter each choice on a new line."
+msgstr "Indiquez une valeur par ligne."
+
+#: fields/acf-treeselect-v5.php:45
+msgid "Specify the parent, value and label like this:"
+msgstr "Indiquez le parent, la valeur et le libellé ainsi:"
+
+#: fields/acf-treeselect-v5.php:45
+msgid "parent / child : Child"
+msgstr "parent / enfant : Enfant"
+
+#: fields/acf-treeselect-v5.php:51
+msgid "Allow parent selection"
+msgstr "Permettre la sélection d'un élément parent"
+
+#: fields/acf-treeselect-v5.php:52
+msgid "Don't force selection of last level elements."
+msgstr "Ne pas forcer la sélection d'un élément de dernier niveau."
+
+#: fields/acf-treeselect-v5.php:59
 msgid "Return Format"
 msgstr "Format d'affichage"
 
-#: fields/acf-treeselect-v5.php:40
+#: fields/acf-treeselect-v5.php:60
 msgid "Specify the value returned in the template."
 msgstr "Détermine le format retourné dans le modèle."
 
-#: fields/acf-treeselect-v5.php:43
+#: fields/acf-treeselect-v5.php:63
 msgid "Values (array)"
 msgstr "Valeurs (array)"
+
+#: fields/acf-treeselect-v5.php:213
+#, php-format
+msgid "Invalid selection value %s"
+msgstr "Valeur sélectionnée invalide: %s"
+
+#: fields/acf-treeselect-v5.php:349
+msgid "Select"
+msgstr "Sélectionner"
 
 #. Name of the plugin
 msgid "Advanced Custom Fields: Tree Select"

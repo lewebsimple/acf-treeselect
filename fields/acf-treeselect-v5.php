@@ -196,6 +196,32 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @return $valid
 		 */
 		function validate_value( $valid, $value, $field, $input ) {
+			if ( empty( $value ) ) {
+				return $valid;
+			}
+
+			$value = $value[0];
+			if ( $field['required'] && empty( $value['value'] ) ) {
+				return sprintf( __( '%s value is required', 'acf' ), $field['label'] );
+			}
+			do {
+				if ( empty( $value['value'] ) ) {
+					break;
+				}
+				if ( count( $value ) > 1 ) {
+					if ( ! isset( $value[ $value['value'] ] ) ) {
+						return sprintf( __( "Invalid selection value %s", 'acf-treeselect' ), $value['value'] );
+					}
+					$value = $value[ $value['value'] ];
+				} else {
+					break;
+				}
+			} while ( true );
+
+			if ( ! $field['allow_parent'] && empty( $value['value'] ) ) {
+				return __( 'Last level selection is required', 'acf-treeselect' );
+			}
+
 			return $valid;
 		}
 
