@@ -23,5 +23,11 @@ This ACF field type is compatible with:
 
 == Changelog ==
 
+= 0.2.0 =
+* Values hierarchy defined using parent, value and label
+* Field option to allow parent or force last level selection
+* Dynamically show / hide select inputs based on user selection
+* Return formatted values as unordered list, span elements or array
+
 = 0.1.0 =
 * Initial Release.

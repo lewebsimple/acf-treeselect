@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: Tree Select
 Plugin URI: https://gitlab.ledevsimple.ca/wordpress/acf-treeselect
 Description: Tree Select field for ACF.
-Version: 0.1.0
+Version: 0.2.0
 Author: Pascal Martineau <pascal@lewebsimple.ca>
 Author URI: https://lewebsimple.ca
 License: GPLv2 or later
@@ -20,7 +20,7 @@ if ( ! class_exists( 'acf_plugin_treeselect' ) ) :
 
 		function __construct() {
 			$this->settings = array(
-				'version' => '0.1.0',
+				'version' => '0.2.0',
 				'url'     => plugin_dir_url( __FILE__ ),
 				'path'    => plugin_dir_path( __FILE__ )
 			);
