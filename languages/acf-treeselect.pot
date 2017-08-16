@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-16 18:18+0000\n"
+"POT-Creation-Date: 2017-08-16 18:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -51,19 +51,27 @@ msgid "Specify the value returned in the template."
 msgstr ""
 
 #: fields/acf-treeselect-v5.php:63
+msgid "Unordered List"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:64
+msgid "Span Elements"
+msgstr ""
+
+#: fields/acf-treeselect-v5.php:65
 msgid "Values (array)"
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:213
+#: fields/acf-treeselect-v5.php:249
 #, php-format
 msgid "Invalid selection value %s"
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:222
+#: fields/acf-treeselect-v5.php:258
 msgid "Last level selection is required"
 msgstr ""
 
-#: fields/acf-treeselect-v5.php:349
+#: fields/acf-treeselect-v5.php:385
 msgid "Select"
 msgstr ""
 

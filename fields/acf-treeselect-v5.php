@@ -60,6 +60,8 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 				'instructions' => __( 'Specify the value returned in the template.', 'acf-treeselect' ),
 				'type'         => 'select',
 				'choices'      => array(
+					'list'  => __( "Unordered List", 'acf-treeselect' ),
+					'span'  => __( "Span Elements", 'acf-treeselect' ),
 					'array' => __( "Values (array)", 'acf-treeselect' ),
 				),
 				'name'         => 'return_format',
@@ -178,6 +180,40 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		function format_value( $value, $post_id, $field ) {
 			if ( empty( $value ) ) {
 				return $value;
+			}
+
+			$levels  = array();
+			$choices = $field['choices'];
+			$value   = $value[0];
+			while ( ! empty( $value['value'] ) ) {
+				$levels[] = array(
+					'value' => $value['value'],
+					'label' => $choices[ $value['value'] ]['label'],
+				);
+				$choices  = $choices[ $value['value'] ]['children'];
+				$value    = $value[ $value['value'] ];
+			}
+
+			switch ( $field['return_format'] ) {
+				case 'list':
+					$value = '<ul class="acf-treeselect ' . $field['name'] . '">';
+					foreach ( $levels as $level ) {
+						$value .= '<li class="' . $level['value'] . '">' . $level['label'] . '</li>';
+					}
+					$value .= '</ul>';
+					break;
+
+				case 'span':
+					$value = '<div class="acf-treeselect ' . $field['name'] . '">';
+					foreach ( $levels as $level ) {
+						$value .= '<span class="' . $level['value'] . '">' . $level['label'] . '</span> ';
+					}
+					$value .= '</div>';
+					break;
+
+				case 'array':
+				default:
+					break;
 			}
 
 			return $value;

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Advanced Custom Fields: Tree Select\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-16 18:19+0000\n"
-"PO-Revision-Date: 2017-08-16 18:19+0000\n"
+"POT-Creation-Date: 2017-08-16 18:40+0000\n"
+"PO-Revision-Date: 2017-08-16 18:43+0000\n"
 "Last-Translator: lewebsimple <tech@lewebsimple.ca>\n"
 "Language-Team: French (Canada)\n"
 "Language: fr-CA\n"
@@ -13,9 +13,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco - https://localise.biz/"
 
-#: fields/acf-treeselect-v5.php:222
-msgid "Last level selection is required"
-msgstr "Une sélection de dernier niveau est requise"
+#: fields/acf-treeselect-v5.php:63
+msgid "Unordered List"
+msgstr "Liste non-ordonnée"
+
+#: fields/acf-treeselect-v5.php:64
+msgid "Span Elements"
+msgstr "Éléments <span>"
 
 #: fields/acf-treeselect-v5.php:22
 msgid "Tree Select"
@@ -53,16 +57,20 @@ msgstr "Format d'affichage"
 msgid "Specify the value returned in the template."
 msgstr "Détermine le format retourné dans le modèle."
 
-#: fields/acf-treeselect-v5.php:63
+#: fields/acf-treeselect-v5.php:65
 msgid "Values (array)"
 msgstr "Valeurs (array)"
 
-#: fields/acf-treeselect-v5.php:213
+#: fields/acf-treeselect-v5.php:249
 #, php-format
 msgid "Invalid selection value %s"
 msgstr "Valeur sélectionnée invalide: %s"
 
-#: fields/acf-treeselect-v5.php:349
+#: fields/acf-treeselect-v5.php:258
+msgid "Last level selection is required"
+msgstr "Une sélection de dernier niveau est requise"
+
+#: fields/acf-treeselect-v5.php:385
 msgid "Select"
 msgstr "Sélectionner"
 
