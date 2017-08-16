@@ -120,6 +120,21 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @return $value
 		 */
 		function load_value( $value, $post_id, $field ) {
+			// Decode value string as an array
+			if ( ! is_string( $value ) ) {
+				return array();
+			}
+			$parts  = array_merge( array( 0 ), explode( '/', $value ) );
+			$output = array();
+			$value  = &$output;
+			while ( count( $parts ) ) {
+				$current_value = array_shift( $parts );
+				if ( reset( $parts ) ) {
+					$output[ $current_value ] = array( 'value' => reset( $parts ) );
+					$output                   = &$output[ $current_value ];
+				}
+			}
+
 			return $value;
 		}
 
@@ -133,7 +148,18 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 		 * @return $value
 		 */
 		function update_value( $value, $post_id, $field ) {
-			return $value;
+			// Encode value array as a string
+			if ( ! is_array( $value ) ) {
+				return '';
+			}
+			$parts = array();
+			$value = reset( $value );
+			while ( ! empty( $value['value'] ) ) {
+				$parts[] = $value['value'];
+				$value   = $value[ $value['value'] ];
+			}
+
+			return implode( '/', $parts );
 		}
 
 		/**
