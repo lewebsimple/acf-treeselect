@@ -402,7 +402,7 @@ function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 	if ( ! empty( $value['value'] ) ) {
 		$select_input['value'] = $value['value'];
 	} else if ( $current_parent != '0' && ! $show ) {
-		$select_input['style'] = 'display: none;';
+		$select_input['style']    = 'display: none;';
 		$select_input['disabled'] = 'disabled;';
 	}
 	$select_inputs[] = $select_input;
