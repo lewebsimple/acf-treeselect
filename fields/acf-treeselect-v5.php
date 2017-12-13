@@ -162,7 +162,11 @@ if ( ! class_exists( 'acf_field_treeselect' ) ) :
 			$value = reset( $value );
 			while ( ! empty( $value['value'] ) ) {
 				$parts[] = $value['value'];
-				$value   = $value[ $value['value'] ];
+				if ( isset( $value[ $value['value'] ] ) ) {
+					$value = $value[ $value['value'] ];
+				} else {
+					$value = false;
+				}
 			}
 
 			return implode( '/', $parts );
@@ -372,8 +376,11 @@ function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 		if ( isset( $value[ $current_parent ] ) ) {
 			$show  = true;
 			$value = $value[ $current_parent ];
+		} else if ( isset( $value['value'] ) ) {
+			$show  = ( $value['value'] == $current_parent );
+			$value = null;
 		} else {
-			$show  = $value['value'] == $current_parent;
+			$show  = false;
 			$value = null;
 		}
 
@@ -396,6 +403,7 @@ function acf_treeselect_select_inputs( $field, $parent = '0' ) {
 		$select_input['value'] = $value['value'];
 	} else if ( $current_parent != '0' && ! $show ) {
 		$select_input['style'] = 'display: none;';
+		$select_input['disabled'] = 'disabled;';
 	}
 	$select_inputs[] = $select_input;
 

@@ -15,6 +15,7 @@
         $el.find('select[name="' + toHide + '"]').each(function () {
           $(this).val('');
           $(this).hide();
+          $(this).prop('disabled', true);
         });
 
         // Show latest selection
@@ -22,6 +23,7 @@
           let toShow = this.name.substr(0, index) + '[' + this.value + ']' + this.name.substr(index);
           $el.find('select[name="' + toShow + '"]').each(function () {
             $(this).show();
+            $(this).prop('disabled', false);
           });
         }
 
