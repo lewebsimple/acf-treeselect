@@ -23,6 +23,9 @@ This ACF field type is compatible with:
 
 == Changelog ==
 
+= 0.2.1 =
+* Add composer.json
+
 = 0.2.0 =
 * Values hierarchy defined using parent, value and label
 * Field option to allow parent or force last level selection
